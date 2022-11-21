@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontWeight: '200',
-    fontSize: '17',
+    fontSize: 17,
     textAlign: 'center',
     paddingHorizontal: 64,
     color: '#ffff'

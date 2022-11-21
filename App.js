@@ -27,9 +27,9 @@ export default function App() {
         <Stack.Navigator initialRouteName='Slides' screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Slides" component={Onboarding} />
           <Stack.Screen name="Landing" component={Landing} />
-          {/*<Stack.Screen name="Loading" component={Loading} />*/}
-          {/*<Stack.Screen name="Profile" component={Profile} />*/}
-          {/*<Stack.Screen name="Main" component={Main} />*/}
+          <Stack.Screen name="Loading" component={Loading} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Main" component={Main} />
           <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>

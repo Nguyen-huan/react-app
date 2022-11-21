@@ -37,7 +37,7 @@ export default function Onboarding({ navigation }) {
           horizontal
           showsHorizontalScrollIndicator={false}
           pagingEnabled
-          // bounces={false}
+          bounces={false}
           keyExtractor={(item) => item.id}
           onScroll={
             Animated.event([
