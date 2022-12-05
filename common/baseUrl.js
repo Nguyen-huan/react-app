@@ -1,1 +1,1 @@
-import { Platform} from "react-native";let baseUrl = "https://9347-42-119-191-210.ap.ngrok.io/api/v1/";// {Platform.OS == 'android'//     ? baseUrl = 'http://10.0.2.2:3000/api/v1'//     : baseUrl = 'http://localhost:3000/api/v1'// }export default baseUrl;
+import { Platform} from "react-native";let baseUrl = "https://7dd1-42-119-191-210.ap.ngrok.io/api/v1/";// {Platform.OS == 'android'//     ? baseUrl = 'http://10.0.2.2:3000/api/v1'//     : baseUrl = 'http://localhost:3000/api/v1'// }export default baseUrl;
