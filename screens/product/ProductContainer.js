@@ -54,20 +54,32 @@ const ProductContainer = (props) => {
     const [active, setActive] = useState();
     const [initialState, setInitialState] = useState([]);
     const [loading, setLoading] = useState(true)
+    const [pageCurent, setPageCurrent] = useState(0)
+    const [totalPages, setTotalPages] = useState(0)
+
 
 
 
     useFocusEffect((
         useCallback(() => {
             setLoading(true)
+            axios.get(`${baseUrl}dishes/pagination?page=${pageCurent}`)
+            .then((res) => {
+                setPageCurrent(res.data.currentPage)
+                setTotalPages(res.data.totalPages)
+            })
+            .catch((err) => console.log(err))
+            
             axios.get(`${baseUrl}categories`)
                 .then((res) => {
                     setCategories(res.data)
                     setLoading(false)
                 })
                 .catch((err) => console.log(err))
-
-            axios.get(`${baseUrl}dishes`)
+            
+            
+            
+            axios.get(`${baseUrl}dishes?page=${pageCurent}`)
                 .then((res) => {
                     setProducts(res.data);
                     setProductFiltered(res.data);
@@ -86,7 +98,7 @@ const ProductContainer = (props) => {
                 setActive();
                 setInitialState();
             })
-        }, [])
+        }, [pageCurent])
     ))
 
 
@@ -162,6 +174,8 @@ const ProductContainer = (props) => {
         )
     }
 
+    const previousPage = ()=> setPageCurrent(state=>state-=1)
+    const nextPage = ()=> setPageCurrent(state=>state+=1)
 
 
 
@@ -292,6 +306,48 @@ const ProductContainer = (props) => {
                                     <Text style={styles.errorTile}>No products found !</Text>
                                 </View>
                             )}
+                            <View style={styles.paginationBlock}>
+                                 <TouchableOpacity 
+                                    disabled={pageCurent==1}
+                                    onPress={() => previousPage()}
+                                 >
+                                        <Text
+                                            //see more
+                                            // onPress={}
+                                            style={{
+                                                    fontSize: 15,
+                                                    padding:10
+                                                }}>
+                                            <AntDesign name="left" size={18} color="gray" />
+                                        </Text>
+                                </TouchableOpacity>
+                                <Text style={styles.pageCurent}>{pageCurent}</Text>
+                                <View style={{height:25, width:1, backgroundColor:"white"}}></View>
+                                <LinearGradient colors={['rgba(232, 192, 61, 1)', 'rgba(190, 100, 109, 1)']}
+                                style={styles.totalPage}
+                                end={{ x: 1, y: 0.5 }}
+                                >
+                                    <Text style={{ fontSize: 15, color: 'white' }}>{totalPages}</Text>
+                                </LinearGradient>
+                                  <TouchableOpacity 
+                                    disabled={pageCurent==totalPages}
+                                    onPress={() => nextPage()}
+                                  >
+                                        <Text
+                                            //see more
+                                            // onPress={}
+                                            style={{
+                                                    marginLeft:10,
+                                                    fontSize: 15,
+                                                    color: 'gray',
+                                                    padding:10
+                                                }}>
+                                            <AntDesign name="right" size={18} color="gray" />
+                                        </Text>
+                                </TouchableOpacity>
+                               
+                               
+                            </View>
                         </View>
                     </ScrollView>
                 ) : (
@@ -422,5 +478,35 @@ const styles = StyleSheet.create({
     flatProductContainer: {
         height: 260,
         marginLeft: 10
+    },
+    paginationBlock:{
+        flex:1,
+        flexDirection: 'row',
+        justifyContent:"center",
+        alignItems:"center",
+        marginTop:40,
+        marginBottom:20
+    },
+    totalPage:{
+        padding: 5,
+        paddingHorizontal: 5,
+        borderRadius: 10,
+        width: 50,
+        height:30,
+        textAlign: 'center',
+        alignItems: "center",
+        marginLeft: 10,
+        marginRight: 10,
+
+    },
+    pageCurent:{
+        padding: 5,
+        paddingHorizontal: 5,
+        borderRadius: 10,
+        width: 50,
+        height:30,
+        textAlign: 'center',
+        alignItems: "center",
+        fontSize: 15, color: 'white' ,
     }
 });
